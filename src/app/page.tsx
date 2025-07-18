@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import HeroSection from '@/components/Hero';
 import TabContent from '@/components/TabContent';
 
@@ -64,9 +65,11 @@ export default function HomePage() {
 							key={index}
 							className="flex flex-col items-center gap-3 text-[#0d81ba] hover:underline"
 						>
-							<img
+							<Image
 								src={feature.image}
 								alt={feature.alt}
+								width={96}
+								height={96}
 								className="w-20 h-20 md:w-24 md:h-24 object-contain"
 							/>
 							<span className="text-sm font-bold text-center">
@@ -79,9 +82,11 @@ export default function HomePage() {
 			<div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-6 p-6 bg-[#fafafa]">
 				{/* Image on left */}
 				<div className="w-full md:w-2/5">
-					<img
+					<Image
 						src="/images/man.jpg"
 						alt="Frederick W. Smith, Founder of FedEx"
+						width={400}
+						height={300}
 						className="w-full h-auto"
 					/>
 					<p className="text-xs text-gray-500 italic mt-1">
@@ -103,7 +108,7 @@ export default function HomePage() {
 						href="/frederick-smith-legacy"
 						className="text-purple-600 hover:text-purple-800 font-medium text-sm inline-flex items-center"
 					>
-						Read about Mr. Smith's legacy
+						Read about Mr. Smith&apos;s legacy
 					</a>
 				</div>
 			</div>
@@ -111,9 +116,11 @@ export default function HomePage() {
 				<div className="flex flex-col lg:flex-row gap-12 items-start">
 					{/* Image on top for small screens, right side for large */}
 					<div className="w-full lg:w-1/2 order-1 lg:order-2">
-						<img
+						<Image
 							src="/images/girl.jpg"
 							alt="FedEx shipping services"
+							width={600}
+							height={400}
 							className="w-full h-auto rounded-lg shadow-lg object-cover"
 						/>
 					</div>
@@ -132,8 +139,8 @@ export default function HomePage() {
 										Innovative solutions for reliability & speed
 									</p>
 									<p className="text-gray-700">
-										Whether it's across states or worldwide, we prioritize the
-										secure and swift arrival of your shipments.
+										Whether it&apos;s across states or worldwide, we prioritize
+										the secure and swift arrival of your shipments.
 									</p>
 								</div>
 
@@ -172,7 +179,7 @@ export default function HomePage() {
 						</div>
 
 						<div className="text-xs text-gray-500 space-y-1 mt-6">
-							<p>*FedEx doesn't ship anywhere sanctioned by the U.S.</p>
+							<p>*FedEx doesn&apos;t ship anywhere sanctioned by the U.S.</p>
 							<p>**Exclusions apply. Visit the One Rate page to learn more.</p>
 						</div>
 					</div>
@@ -195,9 +202,11 @@ export default function HomePage() {
 					{/* Feature 1 - Mobile App */}
 					<div className=" p-6 flex flex-col">
 						<div className="mb-4 overflow-hidden">
-							<img
+							<Image
 								src="/images/one.jpg"
 								alt="FedEx Mobile App"
+								width={400}
+								height={192}
 								className="w-full h-48 object-cover"
 							/>
 						</div>
@@ -217,9 +226,11 @@ export default function HomePage() {
 					{/* Feature 2 - Delivery Hold */}
 					<div className="p-6 flex flex-col">
 						<div className="mb-4 overflow-hidden">
-							<img
+							<Image
 								src="/images/two.jpg"
 								alt="FedEx delivery hold"
+								width={400}
+								height={192}
 								className="w-full h-48 object-cover"
 							/>
 						</div>
@@ -227,9 +238,9 @@ export default function HomePage() {
 							Let us store your delivery indoors
 						</h3>
 						<p className="text-gray-700 mb-4 flex-grow">
-							If you're not going to be home for a delivery, request to hold it
-							at a FedEx location for pickup. Or place a free vacation hold for
-							up to 14 days.
+							If you&apos;re not going to be home for a delivery, request to
+							hold it at a FedEx location for pickup. Or place a free vacation
+							hold for up to 14 days.
 						</p>
 						<button className="mt-auto text-black text-left hover:underline font-medium py-2 w-full">
 							REQUEST A HOLD
@@ -239,9 +250,11 @@ export default function HomePage() {
 					{/* Feature 3 - Luggage Shipping */}
 					<div className="p-6 flex flex-col">
 						<div className="mb-4 overflow-hidden">
-							<img
+							<Image
 								src="/images/three.jpg"
 								alt="FedEx luggage shipping"
+								width={400}
+								height={192}
 								className="w-full h-48 object-cover"
 							/>
 						</div>

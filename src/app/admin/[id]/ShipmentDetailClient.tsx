@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
 	FiPlus,
 	FiArrowLeft,
@@ -55,13 +55,7 @@ const ShipmentDetailClient = ({ params }: ShipmentDetailClientProps) => {
 		params.then(setResolvedParams);
 	}, [params]);
 
-	useEffect(() => {
-		if (resolvedParams) {
-			fetchShipment();
-		}
-	}, [resolvedParams]);
-
-	const fetchShipment = async () => {
+	const fetchShipment = useCallback(async () => {
 		if (!resolvedParams) return;
 
 		try {
@@ -75,7 +69,13 @@ const ShipmentDetailClient = ({ params }: ShipmentDetailClientProps) => {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [resolvedParams]);
+
+	useEffect(() => {
+		if (resolvedParams) {
+			fetchShipment();
+		}
+	}, [resolvedParams, fetchShipment]);
 
 	const handleAddEvent = async (e: React.FormEvent) => {
 		e.preventDefault();

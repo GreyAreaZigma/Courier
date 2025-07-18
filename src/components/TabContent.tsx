@@ -145,7 +145,7 @@ const TabContent = ({ activeTab, inHero = false }: TabContentProps) => {
 								<div className="bg-blue-50 border border-blue-200 rounded-md p-3">
 									<p className="text-sm text-blue-800">
 										76180 and 75043 are the closest matches we could find. If
-										they're wrong, you can change them in the fields above.
+										they&apos;re wrong, you can change them in the fields above.
 									</p>
 								</div>
 							)}
@@ -163,7 +163,7 @@ const TabContent = ({ activeTab, inHero = false }: TabContentProps) => {
 										htmlFor="residential"
 										className="ml-2 text-sm text-gray-700"
 									>
-										I'm shipping to a residential address
+										I&apos;m shipping to a residential address
 									</label>
 								</div>
 							)}
