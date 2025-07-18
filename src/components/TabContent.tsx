@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -14,7 +14,6 @@ const TabContent = ({ activeTab, inHero = false }: TabContentProps) => {
 	const [to, setTo] = useState('');
 	const [trackingNumber, setTrackingNumber] = useState('');
 	const [locationSearch, setLocationSearch] = useState('');
-	const [contentOverflows, setContentOverflows] = useState(false);
 	const contentRef = useRef<HTMLDivElement>(null);
 	const [residentialAddress, setResidentialAddress] = useState(false);
 	const [selectedPackaging, setSelectedPackaging] = useState('');
@@ -29,20 +28,6 @@ const TabContent = ({ activeTab, inHero = false }: TabContentProps) => {
 	const [shipDate, setShipDate] = useState('Monday, July 7, 2025');
 	const [higherLiability, setHigherLiability] = useState(false);
 	const router = useRouter();
-
-	useEffect(() => {
-		const checkOverflow = () => {
-			if (contentRef.current) {
-				const contentHeight = contentRef.current.scrollHeight;
-				const availableHeight = window.innerHeight * 0.4;
-				setContentOverflows(contentHeight > availableHeight);
-			}
-		};
-
-		checkOverflow();
-		window.addEventListener('resize', checkOverflow);
-		return () => window.removeEventListener('resize', checkOverflow);
-	}, [activeTab]);
 
 	const handleTrack = () => {
 		if (trackingNumber.trim()) {

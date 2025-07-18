@@ -6,18 +6,7 @@ const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
 	try {
-		const {
-			name,
-			email,
-			password,
-			firstName,
-			lastName,
-			country,
-			address,
-			countryCode,
-			phone,
-			marketingUpdates,
-		} = await request.json();
+		const { name, email, password } = await request.json();
 
 		// Validate required fields
 		if (!name || !email || !password) {

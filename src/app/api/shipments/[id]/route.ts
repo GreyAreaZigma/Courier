@@ -6,11 +6,12 @@ const prisma = new PrismaClient();
 // GET /api/shipments/[id] - Get specific shipment
 export async function GET(
 	request: NextRequest,
-	{ params }: { params: { id: string } }
+	{ params }: { params: Promise<{ id: string }> }
 ) {
 	try {
+		const { id } = await params;
 		const shipment = await prisma.shipment.findUnique({
-			where: { id: params.id },
+			where: { id },
 			include: {
 				events: {
 					orderBy: { order: 'asc' },
@@ -41,9 +42,10 @@ export async function GET(
 // PUT /api/shipments/[id] - Update shipment
 export async function PUT(
 	request: NextRequest,
-	{ params }: { params: { id: string } }
+	{ params }: { params: Promise<{ id: string }> }
 ) {
 	try {
+		const { id } = await params;
 		const body = await request.json();
 		const {
 			status,
@@ -60,7 +62,7 @@ export async function PUT(
 		} = body;
 
 		const shipment = await prisma.shipment.update({
-			where: { id: params.id },
+			where: { id },
 			data: {
 				status,
 				estimatedDelivery: estimatedDelivery
@@ -99,11 +101,12 @@ export async function PUT(
 // DELETE /api/shipments/[id] - Delete shipment
 export async function DELETE(
 	request: NextRequest,
-	{ params }: { params: { id: string } }
+	{ params }: { params: Promise<{ id: string }> }
 ) {
 	try {
+		const { id } = await params;
 		await prisma.shipment.delete({
-			where: { id: params.id },
+			where: { id },
 		});
 
 		return NextResponse.json({ message: 'Shipment deleted successfully' });

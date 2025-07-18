@@ -6,11 +6,12 @@ const prisma = new PrismaClient();
 // GET /api/shipments/[id]/events - Get all events for a shipment
 export async function GET(
 	request: NextRequest,
-	{ params }: { params: { id: string } }
+	{ params }: { params: Promise<{ id: string }> }
 ) {
 	try {
+		const { id } = await params;
 		const events = await prisma.trackingEvent.findMany({
-			where: { shipmentId: params.id },
+			where: { shipmentId: id },
 			orderBy: { order: 'asc' },
 		});
 
@@ -27,15 +28,16 @@ export async function GET(
 // POST /api/shipments/[id]/events - Add new tracking event
 export async function POST(
 	request: NextRequest,
-	{ params }: { params: { id: string } }
+	{ params }: { params: Promise<{ id: string }> }
 ) {
 	try {
+		const { id } = await params;
 		const body = await request.json();
 		const { eventType, location, description, status, timestamp } = body;
 
 		// Get the next order number
 		const lastEvent = await prisma.trackingEvent.findFirst({
-			where: { shipmentId: params.id },
+			where: { shipmentId: id },
 			orderBy: { order: 'desc' },
 		});
 
@@ -43,7 +45,7 @@ export async function POST(
 
 		const event = await prisma.trackingEvent.create({
 			data: {
-				shipmentId: params.id,
+				shipmentId: id,
 				eventType,
 				location,
 				description,

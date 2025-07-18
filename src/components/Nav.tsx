@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { RxAvatar } from 'react-icons/rx';
-import { usePathname } from 'next/navigation';
+
 import { useSession, signOut } from 'next-auth/react';
 
 const Navbar = () => {
@@ -17,7 +17,6 @@ const Navbar = () => {
 	const [isSearchOpen, setSearchOpen] = useState(false);
 	const [isProfileOpen, setProfileOpen] = useState(false);
 
-	const pathname = usePathname();
 	const { data: session, status } = useSession();
 
 	const shippingRef = useRef<HTMLDivElement>(null);

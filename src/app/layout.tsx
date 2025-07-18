@@ -1,8 +1,6 @@
 // app/layout.tsx
 import { ReactNode } from 'react';
 import './globals.css';
-import Navbar from '@/components/Nav';
-import Footer from '@/components/footer';
 import AuthProvider from '@/components/AuthProvider';
 import LayoutWrapper from '@/components/LayoutWrapper';
 

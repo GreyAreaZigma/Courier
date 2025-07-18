@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
 	FiPlus,
 	FiArrowLeft,
@@ -43,6 +43,20 @@ const ShipmentDetail = ({ params }: { params: Promise<{ id: string }> }) => {
 	});
 	const [shipmentId, setShipmentId] = useState<string>('');
 
+	const fetchShipment = useCallback(async () => {
+		try {
+			const response = await fetch(`/api/shipments/${shipmentId}`);
+			if (response.ok) {
+				const data = await response.json();
+				setShipment(data);
+			}
+		} catch (error) {
+			console.error('Error fetching shipment:', error);
+		} finally {
+			setLoading(false);
+		}
+	}, [shipmentId]);
+
 	useEffect(() => {
 		const getParams = async () => {
 			const { id } = await params;
@@ -55,21 +69,7 @@ const ShipmentDetail = ({ params }: { params: Promise<{ id: string }> }) => {
 		if (shipmentId) {
 			fetchShipment();
 		}
-	}, [shipmentId]);
-
-	const fetchShipment = async () => {
-		try {
-			const response = await fetch(`/api/shipments/${shipmentId}`);
-			if (response.ok) {
-				const data = await response.json();
-				setShipment(data);
-			}
-		} catch (error) {
-			console.error('Error fetching shipment:', error);
-		} finally {
-			setLoading(false);
-		}
-	};
+	}, [shipmentId, fetchShipment]);
 
 	const handleAddEvent = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -285,7 +285,7 @@ const ShipmentDetail = ({ params }: { params: Promise<{ id: string }> }) => {
 						Tracking Timeline
 					</h3>
 					<div className="border-l-2 border-gray-200 pl-6 space-y-6">
-						{shipment.events.map((event, index) => (
+						{shipment.events.map((event) => (
 							<div key={event.id} className="relative">
 								<div className="absolute -left-7 top-0 w-4 h-4 bg-purple-600 rounded-full"></div>
 								<div className="flex flex-col sm:flex-row sm:justify-between">
