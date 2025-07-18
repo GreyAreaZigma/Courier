@@ -184,7 +184,7 @@ export default function HomePage() {
 					</button>
 				</div>
 			</div>
-			<div className="max-w-6xl mx-auto px-4 py-16">
+			<div className="max-w-4xl mx-auto px-4 py-16">
 				<div className="text-center">
 					<h2 className="text-[34px] md:text-4xl font-light text-gray-900 mb-2">
 						Get shipping options that work with your summer plans

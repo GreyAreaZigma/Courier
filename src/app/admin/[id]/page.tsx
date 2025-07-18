@@ -31,7 +31,7 @@ interface TrackingEvent {
 	order: number;
 }
 
-const ShipmentDetail = ({ params }: { params: { id: string } }) => {
+const ShipmentDetail = ({ params }: { params: Promise<{ id: string }> }) => {
 	const [shipment, setShipment] = useState<Shipment | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [showAddEventModal, setShowAddEventModal] = useState(false);
@@ -41,14 +41,25 @@ const ShipmentDetail = ({ params }: { params: { id: string } }) => {
 		description: '',
 		timestamp: new Date().toISOString().slice(0, 16),
 	});
+	const [shipmentId, setShipmentId] = useState<string>('');
 
 	useEffect(() => {
-		fetchShipment();
-	}, [params.id]);
+		const getParams = async () => {
+			const { id } = await params;
+			setShipmentId(id);
+		};
+		getParams();
+	}, [params]);
+
+	useEffect(() => {
+		if (shipmentId) {
+			fetchShipment();
+		}
+	}, [shipmentId]);
 
 	const fetchShipment = async () => {
 		try {
-			const response = await fetch(`/api/shipments/${params.id}`);
+			const response = await fetch(`/api/shipments/${shipmentId}`);
 			if (response.ok) {
 				const data = await response.json();
 				setShipment(data);
@@ -63,7 +74,7 @@ const ShipmentDetail = ({ params }: { params: { id: string } }) => {
 	const handleAddEvent = async (e: React.FormEvent) => {
 		e.preventDefault();
 		try {
-			const response = await fetch(`/api/shipments/${params.id}/events`, {
+			const response = await fetch(`/api/shipments/${shipmentId}/events`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(eventForm),
@@ -86,7 +97,7 @@ const ShipmentDetail = ({ params }: { params: { id: string } }) => {
 
 	const updateShipmentStatus = async (newStatus: string) => {
 		try {
-			const response = await fetch(`/api/shipments/${params.id}`, {
+			const response = await fetch(`/api/shipments/${shipmentId}`, {
 				method: 'PUT',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ status: newStatus }),
@@ -397,4 +408,3 @@ const ShipmentDetail = ({ params }: { params: { id: string } }) => {
 };
 
 export default ShipmentDetail;
-
